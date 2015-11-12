@@ -1,0 +1,22 @@
+{
+    "name": "mobly/buscape-sdk",
+    "description": "Buscape Seller Integration PHP-SDK",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Mobly\\Buscape\\Sdk\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.4",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mobly Developers",
+            "email": "dev@mobly.com.br"
+        }
+    ],
+    "minimum-stability": "stable"
+}
