@@ -1,13 +1,13 @@
 <?php
 
-namespace Mobly\Buscape\Collection;
+namespace Mobly\Buscape\Sdk\Collection;
 
-use Mobly\Buscape\Entity\EntityAbstract;
+use Mobly\Buscape\Sdk\Entity\EntityAbstract;
 
 /**
- * Class Abstract
- * 
- * @package Mobly\Buscape\Collection
+ * Class CollectionAbstract
+ *
+ * @package Mobly\Buscape\Sdk\Collection
  */
 class CollectionAbstract implements \JsonSerializable
 {

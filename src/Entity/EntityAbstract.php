@@ -1,14 +1,19 @@
 <?php
 
-namespace Mobly\Buscape\Entity;
+namespace Mobly\Buscape\Sdk\Entity;
 
 /**
  * Class EntityAbstract
  *
- * @package Mobly\Buscape\Entity
+ * @package Mobly\Buscape\Sdk\Entity
  */
 class EntityAbstract implements \JsonSerializable
 {
+    /**
+     * @var array
+     */
+    protected $required = [];
+
     /**
      * AbstractEntity constructor.
      *
@@ -32,6 +37,68 @@ class EntityAbstract implements \JsonSerializable
     }
 
     /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $properties = get_object_vars($this);
+
+        $data = [];
+        foreach ($properties as $property => $value) {
+            if ($property == 'required') {
+
+                continue;
+            }
+
+            if ($value instanceof EntityAbstract) {
+                $data[$property] = $value->toArray();
+
+                continue;
+            }
+
+            if ((is_array($value) && count($value)) || $value instanceof \IteratorAggregate) {
+                foreach ($value as $index => $item) {
+                    if ($item instanceof EntityAbstract) {
+                        $data[$property][$index] = $item->toArray();
+                    } else {
+                        $data[$property][$index] = $item;
+                    }
+                }
+
+                continue;
+            }
+
+            $data[$property] = $this->$property;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array|object $data
+     *
+     * @throws \Exception
+     */
+    protected function validateRequired($data)
+    {
+        if (is_object($data)) {
+            $data = get_object_vars($data);
+        }
+
+        $missing = [];
+
+        foreach ($this->required as $attribute) {
+            if (!isset($data[$attribute])) {
+                $missing[] = $attribute;
+            }
+        }
+
+        if (count($missing) > 0) {
+            throw new \Exception('Required params "' . implode(', ', $missing) . '" missing');
+        }
+    }
+
+    /**
      * @param $key
      * @param $value
      */
@@ -45,8 +112,6 @@ class EntityAbstract implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $properties = get_object_vars($this);
-
-        return $properties;
+        return $this->toArray();
     }
 }
