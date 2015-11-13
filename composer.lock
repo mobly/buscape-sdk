@@ -211,6 +211,7 @@
             "time": "2015-07-03 13:48:55"
         }
     ],
+<<<<<<< HEAD
     "packages-dev": [
         {
             "name": "phpunit/php-code-coverage",
@@ -621,6 +622,9 @@
             "time": "2015-10-11 09:39:48"
         }
     ],
+=======
+    "packages-dev": [],
+>>>>>>> 62fc5082a35d78b8f2bd4bd42c686f26868fb916
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
