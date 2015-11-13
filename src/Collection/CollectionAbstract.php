@@ -1,13 +1,15 @@
 <?php
 
-namespace Mobly\Buscape\Common;
+namespace Mobly\Buscape\Collection;
+
+use Mobly\Buscape\Entity\EntityAbstract;
 
 /**
- * Class AbstractCollection
- *
- * @package Mobly\Buscape\Common
+ * Class Abstract
+ * 
+ * @package Mobly\Buscape\Collection
  */
-class AbstractCollection implements \JsonSerializable
+class CollectionAbstract implements \JsonSerializable
 {
     /**
      * @var array
@@ -15,10 +17,10 @@ class AbstractCollection implements \JsonSerializable
     protected $collection = [];
 
     /**
-     * @param AbstractEntity $abstractEntity
+     * @param EntityAbstract $abstractEntity
      * @param null $key
      */
-    public function add(AbstractEntity $abstractEntity, $key = null) {
+    public function add(EntityAbstract $abstractEntity, $key = null) {
         $this->collection[$key] = $abstractEntity;
     }
 

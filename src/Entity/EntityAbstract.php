@@ -1,13 +1,13 @@
 <?php
 
-namespace Mobly\Buscape\Common;
+namespace Mobly\Buscape\Entity;
 
 /**
- * Class AbstractEntity
+ * Class EntityAbstract
  *
- * @package Mobly\Buscape\Common
+ * @package Mobly\Buscape\Entity
  */
-class AbstractEntity implements \JsonSerializable
+class EntityAbstract implements \JsonSerializable
 {
     /**
      * AbstractEntity constructor.
