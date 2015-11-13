@@ -7,7 +7,7 @@ namespace Mobly\Buscape\Sdk\Entity;
  *
  * @package Mobly\Buscape\Sdk\Entity
  */
-class EntityAbstract implements \JsonSerializable
+abstract class EntityAbstract implements \JsonSerializable
 {
     /**
      * @var array

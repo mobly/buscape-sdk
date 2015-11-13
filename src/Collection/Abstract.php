@@ -9,7 +9,7 @@ use Mobly\Buscape\Sdk\Entity\EntityAbstract;
  *
  * @package Mobly\Buscape\Sdk\Collection
  */
-class CollectionAbstract implements \JsonSerializable
+abstract class CollectionAbstract implements \JsonSerializable
 {
     /**
      * @var array
