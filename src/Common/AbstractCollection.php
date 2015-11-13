@@ -9,11 +9,17 @@ namespace Mobly\Buscape\Common;
  */
 class AbstractCollection implements \JsonSerializable
 {
+    /**
+     * @var array
+     */
     protected $collection = [];
 
-
-    public function add(AbstractEntity $abstractEntity) {
-        $this->collection[] = $abstractEntity;
+    /**
+     * @param AbstractEntity $abstractEntity
+     * @param null $key
+     */
+    public function add(AbstractEntity $abstractEntity, $key = null) {
+        $this->collection[$key] = $abstractEntity;
     }
 
     /**
