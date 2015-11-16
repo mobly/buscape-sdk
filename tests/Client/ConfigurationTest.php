@@ -7,7 +7,7 @@ use Mobly\Buscape\Sdk\Client\Configuration;
  * Unit tests for Configuration
  *
  * @package Mobly\Buscape\Tests\Client
- * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com.br>
+ * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
  **/
 class ConfigurationTest extends \PHPUnit_Framework_TestCase 
 {
@@ -139,4 +139,3 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
     }
 
 }
-
