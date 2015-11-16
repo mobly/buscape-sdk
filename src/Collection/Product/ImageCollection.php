@@ -30,8 +30,6 @@ class ImageCollection implements \JsonSerializable
      * @return array
      */
     public function jsonSerialize() {
-        $properties = get_object_vars($this);
-
-        return $properties['collection'];
+        return $this->collection;
     }
 }
