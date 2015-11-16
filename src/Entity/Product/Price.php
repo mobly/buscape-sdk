@@ -67,6 +67,13 @@ class Price extends EntityAbstract
      */
     protected $installmentValue;
 
+    protected $required = [
+        'type',
+        'price',
+        'installment',
+        'installmentValue'
+    ];
+
     /**
      * @return string
      */
