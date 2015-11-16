@@ -1,8 +1,6 @@
 <?php
 
-namespace Mobly\Buscape;
-
-use Mobly\Buscape\Sdk\Entity\EntityAbstract;
+namespace Mobly\Buscape\Sdk\Entity;
 
 /**
  * Class Product
