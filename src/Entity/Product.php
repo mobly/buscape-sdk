@@ -2,6 +2,8 @@
 
 namespace Mobly\Buscape\Sdk\Entity;
 
+use Mobly\Buscape\Sdk\Collection\Product\Price;
+
 /**
  * Class Product
  *
@@ -99,7 +101,7 @@ class Product extends EntityAbstract
      * Need at least two prices
      * boleto or cartao_avista and cartao_parcelado_sem_juros or cartao_parcelado_com_juros
      *
-     * @var array
+     * @var Price
      */
     protected $prices;
 
