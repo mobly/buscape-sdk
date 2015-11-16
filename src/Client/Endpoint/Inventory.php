@@ -5,7 +5,7 @@ namespace Mobly\Buscape\Sdk\Client\Endpoint;
  * Inventory endpoint
  *
  * @package Mobly\Buscape\Sdk\Client\Endpoint
- * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com.br>
+ * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
  **/
 class Inventory extends EndpointAbstract
 {

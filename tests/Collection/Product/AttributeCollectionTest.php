@@ -5,7 +5,7 @@ use Mobly\Buscape\Sdk\Collection\Product\AttributeCollection;
 use Mobly\Buscape\Sdk\Entity\Product\Attribute;
 
 /**
- * Unit tests for ImageCollection
+ * Unit tests for AttributeCollection
  *
  * @package Mobly\Buscape\Tests\Collection\Product
  * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
@@ -24,14 +24,14 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
         $attribute->setValue('Valor 1');
 
 
-        $imageCollection = new AttributeCollection();
-        $imageCollection->add($attribute);
+        $attributeCollection = new AttributeCollection();
+        $attributeCollection->add($attribute);
 
         $expected = '{"Atributo 1":"Valor 1"}';
 
         $this->assertEquals(
             $expected,
-            json_encode($imageCollection)
+            json_encode($attributeCollection)
         );
     }    
 }

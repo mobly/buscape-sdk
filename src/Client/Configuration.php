@@ -9,7 +9,7 @@ use Mobly\Buscape\Sdk\Client\Endpoint\Inventory;
  * Configuration class
  *
  * @package Mobly\Buscape\Sdk\Client
- * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com.br>
+ * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
  **/
 class Configuration 
 {
