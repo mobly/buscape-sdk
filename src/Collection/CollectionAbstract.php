@@ -20,16 +20,20 @@ abstract class CollectionAbstract implements \JsonSerializable
      * @param EntityAbstract $abstractEntity
      * @param null $key
      */
-    public function add(EntityAbstract $abstractEntity, $key = null) {
-        $this->collection[$key] = $abstractEntity;
+    public function add(EntityAbstract $abstractEntity, $key = null)
+    {
+        if (is_null($key)) {
+            $this->collection[] = $abstractEntity;
+        } else {
+            $this->collection[$key] = $abstractEntity;
+        }
     }
 
     /**
      * @return array
      */
-    public function jsonSerialize() {
-        $properties = get_object_vars($this);
-
-        return $properties;
+    public function jsonSerialize()
+    {
+        return $this->collection;
     }
 }
