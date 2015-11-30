@@ -10,9 +10,23 @@ namespace Mobly\Buscape\Sdk\Entity;
 abstract class EntityAbstract implements \JsonSerializable
 {
     /**
+     * Define required proprieties
+     *
      * @var array
      */
     protected $required = [];
+
+    /**
+     * Array with errors
+     *
+     * @var array
+     */
+    protected $errors = [];
+
+    /**
+     * @var boolean
+     */
+    protected $hasErrors;
 
     /**
      * AbstractEntity constructor.
@@ -45,8 +59,9 @@ abstract class EntityAbstract implements \JsonSerializable
 
         $data = [];
         foreach ($properties as $property => $value) {
-            if ($property == 'required') {
-
+            if ($property == 'required' ||
+                $property == 'errors' ||
+                $property == 'hasErrors') {
                 continue;
             }
 
@@ -94,7 +109,7 @@ abstract class EntityAbstract implements \JsonSerializable
         }
 
         if (count($missing) > 0) {
-            throw new \Exception('Required params "' . implode(', ', $missing) . '" missing');
+            $this->errors[] = 'Required params "' . implode(', ', $missing) . '" missing';
         }
     }
 
@@ -114,4 +129,45 @@ abstract class EntityAbstract implements \JsonSerializable
     {
         return $this->toArray();
     }
+
+    /**
+     * @return array
+     */
+    public function getRequired()
+    {
+        return $this->required;
+    }
+
+    /**
+     * @param array $required
+     */
+    public function setRequired($required)
+    {
+        $this->required = $required;
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @param array $errors
+     */
+    public function setErrors($errors)
+    {
+        $this->errors[] = $errors;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasErrors()
+    {
+        return (bool) count($this->getErrors()) > 0;
+    }
+
 }

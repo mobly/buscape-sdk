@@ -9,7 +9,7 @@ use Mobly\Buscape\Sdk\Collection\CollectionAbstract;
  *
  * @package Mobly\Buscape\Sdk\Collection\Product
  */
-class Price extends CollectionAbstract
+class PriceCollection extends CollectionAbstract
 {
 
 }

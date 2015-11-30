@@ -3,6 +3,7 @@
 namespace Mobly\Buscape\Sdk\Collection;
 
 use Mobly\Buscape\Sdk\Entity\EntityAbstract;
+use Mobly\Buscape\Sdk\Entity\Product;
 
 /**
  * Class CollectionAbstract
@@ -36,4 +37,22 @@ abstract class CollectionAbstract implements \JsonSerializable
     {
         return $this->collection;
     }
+
+    /**
+     * @return array
+     */
+    public function getErrors()
+    {
+        $errors = [];
+
+        /** @var Product $item */
+        foreach ($this->collection as $item) {
+            if ($item->hasErrors()) {
+                $errors[$item->getSku()] = $item->getErrors();
+            }
+        }
+
+        return $errors;
+    }
+
 }
