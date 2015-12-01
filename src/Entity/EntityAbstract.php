@@ -83,7 +83,9 @@ abstract class EntityAbstract implements \JsonSerializable
                 continue;
             }
 
-            $data[$property] = $this->$property;
+            if (($this->$property == 0 || !empty($this->$property)) && $this->$property != null) {
+                $data[$property] = $this->$property;
+            }
         }
 
         return $data;

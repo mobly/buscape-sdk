@@ -5,6 +5,7 @@ namespace Mobly\Buscape\Sdk\Entity;
 use Mobly\Buscape\Sdk\Collection\Product\AttributeCollection;
 use Mobly\Buscape\Sdk\Collection\Product\ImageCollection;
 use Mobly\Buscape\Sdk\Collection\Product\PriceCollection;
+use Mobly\Buscape\Sdk\Validator\RequiredTrait;
 
 /**
  * Class Product
@@ -13,7 +14,6 @@ use Mobly\Buscape\Sdk\Collection\Product\PriceCollection;
  */
 class Product extends EntityAbstract
 {
-
     /**
      * Product variation group ID
      * Ex. Shoe XXX White (sku 100 - groupId 1), Shoe XXX Black (sku 200 - groupId 1),
@@ -223,13 +223,19 @@ class Product extends EntityAbstract
 
     /**
      * Product constructor.
+     *
+     * @param array $data
      */
     public function __construct($data = [])
     {
-        $this->validateRequired($data);
         parent::__construct($data);
+        $this->validateRequired($this);
     }
 
+    public function isValid()
+    {
+        return !count($this->errors) > 0;
+    }
 
     /**
      * @return string
