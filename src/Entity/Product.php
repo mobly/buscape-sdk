@@ -2,7 +2,10 @@
 
 namespace Mobly\Buscape\Sdk\Entity;
 
-use Mobly\Buscape\Sdk\Collection\Product\Price;
+use Mobly\Buscape\Sdk\Collection\Product\AttributeCollection;
+use Mobly\Buscape\Sdk\Collection\Product\ImageCollection;
+use Mobly\Buscape\Sdk\Collection\Product\PriceCollection;
+use Mobly\Buscape\Sdk\Validator\RequiredTrait;
 
 /**
  * Class Product
@@ -11,7 +14,6 @@ use Mobly\Buscape\Sdk\Collection\Product\Price;
  */
 class Product extends EntityAbstract
 {
-
     /**
      * Product variation group ID
      * Ex. Shoe XXX White (sku 100 - groupId 1), Shoe XXX Black (sku 200 - groupId 1),
@@ -69,7 +71,7 @@ class Product extends EntityAbstract
      * Image list of product
      * 4094 characters max per image
      *
-     * @var array
+     * @var ImageCollection
      */
     protected $images;
 
@@ -101,7 +103,7 @@ class Product extends EntityAbstract
      * Need at least two prices
      * boleto or cartao_avista and cartao_parcelado_sem_juros or cartao_parcelado_com_juros
      *
-     * @var Price
+     * @var PriceCollection
      */
     protected $prices;
 
@@ -109,7 +111,7 @@ class Product extends EntityAbstract
      * Main features of product variation
      * Ex. color, voltage, size and etc
      *
-     * @var array
+     * @var AttributeCollection
      */
     protected $productAttributes;
 
@@ -220,6 +222,22 @@ class Product extends EntityAbstract
     ];
 
     /**
+     * Product constructor.
+     *
+     * @param array $data
+     */
+    public function __construct($data = [])
+    {
+        parent::__construct($data);
+        $this->validateRequired($this);
+    }
+
+    public function isValid()
+    {
+        return !count($this->errors) > 0;
+    }
+
+    /**
      * @return string
      */
     public function getGroupId()
@@ -324,9 +342,9 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @param array $images
+     * @param ImageCollection $images
      */
-    public function setImages($images)
+    public function setImages(ImageCollection $images)
     {
         $this->images = $images;
     }
@@ -388,9 +406,9 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @param array $prices
+     * @param PriceCollection $prices
      */
-    public function setPrices($prices)
+    public function setPrices(PriceCollection $prices)
     {
         $this->prices = $prices;
     }
@@ -404,9 +422,9 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @param array $productAttributes
+     * @param AttributeCollection $productAttributes
      */
-    public function setProductAttributes($productAttributes)
+    public function setProductAttributes(AttributeCollection $productAttributes)
     {
         $this->productAttributes = $productAttributes;
     }

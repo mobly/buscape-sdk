@@ -2,7 +2,7 @@
 
 namespace Mobly\Buscape\Tests\Collection\Product;
 
-use Mobly\Buscape\Sdk\Collection\Product\Price as Collection;
+use Mobly\Buscape\Sdk\Collection\Product\PriceCollection as Collection;
 use Mobly\Buscape\Sdk\Entity\Product\Price as Entity;
 
 /**
