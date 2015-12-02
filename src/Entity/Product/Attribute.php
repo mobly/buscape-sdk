@@ -6,7 +6,7 @@ use Mobly\Buscape\Sdk\Entity\EntityKeyValueAbstract;
 /**
  * Attribute entity class
  *
- * @packaged Mobly\Buscape\Sdk\Entity\Product
+ * @package Mobly\Buscape\Sdk\Entity\Product
  * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
  **/
 class Attribute extends EntityKeyValueAbstract  

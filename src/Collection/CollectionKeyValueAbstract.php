@@ -36,5 +36,15 @@ class CollectionKeyValueAbstract implements \JsonSerializable
         }
         return $data;
     }
+
+    /**
+     * Return array of collection
+     *
+     * @return array
+     **/
+    public function toArray()
+    {
+        return $this->collection;     
+    }
 }
 

@@ -6,7 +6,7 @@ use Mobly\Buscape\Sdk\Entity\EntityAbstract;
 /**
  * Image entity class
  *
- * @packaged Mobly\Buscape\Sdk\Entity\Product
+ * @package Mobly\Buscape\Sdk\Entity\Product
  * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
  **/
 class Image extends EntityAbstract  

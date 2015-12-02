@@ -9,7 +9,7 @@ use Mobly\Buscape\Sdk\Entity\EntityAbstract;
  *
  * @package Mobly\Buscape\Sdk\Collection
  */
-abstract class CollectionAbstract implements \JsonSerializable
+abstract class CollectionAbstract implements \JsonSerializable, \Countable
 {
     /**
      * @var array
@@ -30,10 +30,30 @@ abstract class CollectionAbstract implements \JsonSerializable
     }
 
     /**
+     * Return count of collection
+     *
+     * @return integer
+     **/
+    public function count()
+    {
+        return count($this->collection);    
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
     {
         return $this->collection;
+    }
+
+    /**
+     * Return array of collection
+     *
+     * @return array
+     **/
+    public function toArray()
+    {
+        return $this->collection;     
     }
 }

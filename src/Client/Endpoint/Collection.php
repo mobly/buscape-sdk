@@ -1,4 +1,5 @@
 <?php
+
 namespace Mobly\Buscape\Sdk\Client\Endpoint;
 
 /**
@@ -29,7 +30,14 @@ class Collection extends EndpointAbstract
      * @var string
      **/
     protected $method = 'POST';
-    
+
+    /**
+     * Number of items for send to endpoint
+     *
+     * @var integer
+     **/
+    protected $chunk = 1000;
+
     /**
      * Create and return the instance of this class
      *

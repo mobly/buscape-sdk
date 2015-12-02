@@ -1,4 +1,5 @@
 <?php
+
 namespace Mobly\Buscape\Sdk\Client\Endpoint;
 
 use Mobly\Buscape\Sdk\Client\Configuration;
