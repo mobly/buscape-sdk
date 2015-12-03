@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\ParseException;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 use Mobly\Buscape\Sdk\Client\Endpoint\EndpointAbstract;
 use Mobly\Buscape\Sdk\Client\Request\Paginator;
-use Mobly\Buscape\Sdk\Collection\Product as ProductCollection;
+use Mobly\Buscape\Sdk\Collection\ProductCollection;
 
 /**
  * Request

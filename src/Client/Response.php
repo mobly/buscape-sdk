@@ -2,7 +2,7 @@
 
 namespace Mobly\Buscape\Sdk\Client;
 
-use Mobly\Buscape\Sdk\Collection\Product as ProductCollection;
+use Mobly\Buscape\Sdk\Collection\ProductCollection;
 
 /**
  * Response

@@ -4,7 +4,7 @@ namespace Mobly\Buscape\Tests\Mocks\Traits;
 
 use Mobly\Buscape\Sdk\Client\Request\Paginator;
 use Mobly\Buscape\Sdk\Client\Response;
-use Mobly\Buscape\Sdk\Collection\Product as ProductCollection;
+use Mobly\Buscape\Sdk\Collection\ProductCollection;
 use Mobly\Buscape\Sdk\Entity\Product;
 
 /**

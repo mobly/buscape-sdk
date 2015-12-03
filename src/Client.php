@@ -4,7 +4,7 @@ namespace Mobly\Buscape\Sdk;
 use Mobly\Buscape\Sdk\Client\Configuration;
 use Mobly\Buscape\Sdk\Client\Request;
 use Mobly\Buscape\Sdk\Client\Response;
-use Mobly\Buscape\Sdk\Collection\Product as ProductCollection;
+use Mobly\Buscape\Sdk\Collection\ProductCollection;
 
 /**
  * Client class
