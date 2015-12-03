@@ -5,7 +5,6 @@ namespace Mobly\Buscape\Sdk\Entity;
 use Mobly\Buscape\Sdk\Collection\Product\AttributeCollection;
 use Mobly\Buscape\Sdk\Collection\Product\ImageCollection;
 use Mobly\Buscape\Sdk\Collection\Product\PriceCollection;
-use Mobly\Buscape\Sdk\Validator\RequiredTrait;
 
 /**
  * Class Product
@@ -198,27 +197,66 @@ class Product extends EntityAbstract
      *
      * @var array
      */
-    protected $errors;
+    protected $errors = [];
+
 
     /**
-     * Required properties
-     *
+     * Validation rules
      * @var array
      */
-    protected $required = [
-        'sku',
-        'prices',
-        'quantity',
-        'category',
-        'description',
-        'images',
-        'link',
-        'technicalSpecification',
-        'sizeHeight',
-        'sizeLength',
-        'sizeWidth',
-        'weightValue',
-        'marketplace'
+    protected $rules = [
+        'sku' => [
+            'required',
+            'maxLength' => 240,
+        ],
+        'barcode' => [
+            'onlyNum',
+            'maxLength' => 240,
+        ],
+        'description' => [
+            'required',
+            'allowTags'
+        ],
+        'prices' => [
+            'required',
+            'checkPrice'
+        ],
+        'quantity' => [
+            'required'
+        ],
+        'category' => [
+            'required',
+            'maxLength' => 255
+        ],
+        'images' => [
+            'required',
+            'maxLength' => 4094
+        ],
+        'link' => [
+            'required',
+            'maxLength' => 4094
+        ],
+        'linkLomadee' => [
+            'maxLength' => 4094
+        ],
+        'technicalSpecification' => [
+            'required'
+        ],
+        'sizeHeight' => [
+            'required'
+        ],
+        'sizeLength' => [
+            'required'
+        ],
+        'sizeWidth' => [
+            'required'
+        ],
+        'weightValue' => [
+            'required'
+        ],
+        'marketplace' => [
+            'required'
+        ]
     ];
 
     /**
@@ -229,9 +267,12 @@ class Product extends EntityAbstract
     public function __construct($data = [])
     {
         parent::__construct($data);
-        $this->validateRequired($this);
+        $this->validate($this);
     }
 
+    /**
+     * @return bool
+     */
     public function isValid()
     {
         return !count($this->errors) > 0;
@@ -618,6 +659,16 @@ class Product extends EntityAbstract
      */
     public function setErrors($errors)
     {
-        $this->errors = $errors;
+        $this->errors[] = $errors;
+    }
+
+    protected function validateSku()
+    {
+        return strlen($this->sku) < 240;
+    }
+
+    protected function validateBarcode()
+    {
+
     }
 }

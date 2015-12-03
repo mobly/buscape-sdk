@@ -10,11 +10,11 @@ namespace Mobly\Buscape\Sdk\Entity;
 abstract class EntityAbstract implements \JsonSerializable
 {
     /**
-     * Define required proprieties
+     * Validation rules
      *
      * @var array
      */
-    protected $required = [];
+    protected $rules = [];
 
     /**
      * Array with errors
@@ -59,7 +59,7 @@ abstract class EntityAbstract implements \JsonSerializable
 
         $data = [];
         foreach ($properties as $property => $value) {
-            if ($property == 'required' ||
+            if ($property == 'rules' ||
                 $property == 'errors' ||
                 $property == 'hasErrors') {
                 continue;
@@ -83,7 +83,7 @@ abstract class EntityAbstract implements \JsonSerializable
                 continue;
             }
 
-            if (($this->$property == 0 || !empty($this->$property)) && $this->$property != null) {
+            if (!is_null($this->$property)) {
                 $data[$property] = $this->$property;
             }
         }
@@ -91,27 +91,24 @@ abstract class EntityAbstract implements \JsonSerializable
         return $data;
     }
 
+
     /**
-     * @param array|object $data
      *
-     * @throws \Exception
      */
-    protected function validateRequired($data)
+    protected function validate()
     {
-        if (is_object($data)) {
-            $data = get_object_vars($data);
-        }
-
-        $missing = [];
-
-        foreach ($this->required as $attribute) {
-            if (!isset($data[$attribute])) {
-                $missing[] = $attribute;
+        foreach ($this->rules as $attribute => $rules) {
+            foreach ($rules as $rule => $param) {
+                $className = 'Mobly\\Buscape\\Sdk\\Validation\\' . $rule;
+                if (class_exists($className)) {
+                    $validator = new $className(
+                        $attribute,
+                        $param,
+                        $this
+                    );
+                    $validator->validate();
+                }
             }
-        }
-
-        if (count($missing) > 0) {
-            $this->errors[] = 'Required params "' . implode(', ', $missing) . '" missing';
         }
     }
 

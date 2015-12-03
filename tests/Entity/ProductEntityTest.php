@@ -35,7 +35,7 @@ class ProductEntityTest extends \PHPUnit_Framework_TestCase
         $product = new Product(
             [
                 'sku' => 'unit',
-                'prices' => 10.00,
+                'prices' => 10.99,
                 'quantity' => 1,
                 'category' => 'Unit > Test',
                 'description' => 'Test unit to product',
@@ -51,7 +51,7 @@ class ProductEntityTest extends \PHPUnit_Framework_TestCase
                 'sizeHeight' => 10,
                 'sizeLength' => 10,
                 'sizeWidth' => 10,
-                'weightValue' => 10,
+                'weightValue' => 0,
                 'marketplace' => 'PHP Unit'
             ]
         );
@@ -60,6 +60,5 @@ class ProductEntityTest extends \PHPUnit_Framework_TestCase
             $product->isValid()
         );
 
-        echo json_encode($product);
     }
 }
