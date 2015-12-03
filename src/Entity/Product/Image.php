@@ -39,4 +39,15 @@ class Image extends EntityAbstract
         $this->url = $url;    
     }
     
+    /**
+     * Validation rules
+     * @var array
+     */
+    protected $rules = [
+        'url' => [
+            'required',
+            'maxLength' => 4094,
+        ],
+    ];
+    
 }
