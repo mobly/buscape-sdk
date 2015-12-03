@@ -67,11 +67,17 @@ class Price extends EntityAbstract
      */
     protected $installmentValue;
 
-    protected $required = [
-        'type',
-        'price',
-        'installment',
-        'installmentValue'
+    /**
+     * Validation rules
+     * @var array
+     */
+    protected $rules = [
+        'type' => [
+            'required'
+        ],
+        'price' => [
+            'required'
+        ]
     ];
 
     /**

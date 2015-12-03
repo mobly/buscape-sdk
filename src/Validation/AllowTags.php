@@ -4,8 +4,21 @@ namespace Mobly\Buscape\Sdk\Validation;
 
 use Mobly\Buscape\Sdk\Entity\EntityAbstract;
 
-class Required extends ValidationAbstract
+class AllowTags extends ValidationAbstract
 {
+
+    /**
+     * @var array
+     */
+    protected $allowTags = [
+        '<p>',
+        '<br>',
+        '<b>',
+        '<strong>',
+        '<i>',
+        '<div>',
+        '<span>',
+    ];
 
     /**
      * Required constructor.
@@ -28,9 +41,11 @@ class Required extends ValidationAbstract
     {
         $data = $this->entity->toArray();
 
-        if (!isset($data[$this->property])) {
+        $property = isset($data[$this->property]) ? $data[$this->property] : false;
+
+        if ($property && ($property != strip_tags($property, implode('', $this->allowTags)))) {
             $this->entity->setErrors(
-                'Required param "' . $this->property . '" missing'
+                'The param "' . $this->property . '" has not allowed HTML tags'
             );
         }
     }

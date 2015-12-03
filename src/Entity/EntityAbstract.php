@@ -93,13 +93,18 @@ abstract class EntityAbstract implements \JsonSerializable
 
 
     /**
-     *
+     * call validate classes
      */
     protected function validate()
     {
         foreach ($this->rules as $attribute => $rules) {
             foreach ($rules as $rule => $param) {
-                $className = 'Mobly\\Buscape\\Sdk\\Validation\\' . $rule;
+                if (is_numeric($rule)) {
+                    $rule = $param;
+                }
+
+                $className = 'Mobly\\Buscape\\Sdk\\Validation\\' . ucfirst($rule);
+
                 if (class_exists($className)) {
                     $validator = new $className(
                         $attribute,
@@ -110,6 +115,15 @@ abstract class EntityAbstract implements \JsonSerializable
                 }
             }
         }
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isValid()
+    {
+        return !count($this->errors) > 0;
     }
 
     /**

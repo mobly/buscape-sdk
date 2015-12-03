@@ -4,9 +4,8 @@ namespace Mobly\Buscape\Sdk\Validation;
 
 use Mobly\Buscape\Sdk\Entity\EntityAbstract;
 
-class Required extends ValidationAbstract
+class OnlyNum extends ValidationAbstract
 {
-
     /**
      * Required constructor.
      *
@@ -28,10 +27,11 @@ class Required extends ValidationAbstract
     {
         $data = $this->entity->toArray();
 
-        if (!isset($data[$this->property])) {
+        if (isset($data[$this->property]) && !preg_match('/^[0-9]+$/', $data[$this->property])) {
             $this->entity->setErrors(
-                'Required param "' . $this->property . '" missing'
+                'The param "' . $this->property . '" must be numeric'
             );
         }
+
     }
 }

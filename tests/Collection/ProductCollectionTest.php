@@ -1,6 +1,7 @@
 <?php
 namespace Mobly\Buscape\Tests\Collection;
 
+use Mobly\Buscape\Sdk\Collection\Product\PriceCollection;
 use Mobly\Buscape\Sdk\Collection\ProductCollection;
 use Mobly\Buscape\Sdk\Entity\Product;
 
@@ -26,10 +27,32 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $productCollection = new ProductCollection();
 
+        $priceCollection = new PriceCollection();
+
+        $priceAvista = new Product\Price(
+            [
+                'type' => Product\Price::TYPE_BOLETO,
+                'price' => 99.99
+            ]
+        );
+
+        $priceCollection->add($priceAvista);
+
+        $priceParcelado = new Product\Price(
+            [
+                'type' => Product\Price::TYPE_CARTAO_PARCELADO_SEM_JUROS,
+                'price' => 99.99,
+                'installment' => 3,
+                'installmentValue' => 33.33
+            ]
+        );
+
+        $priceCollection->add($priceParcelado);
+
         $product1 = new Product(
             [
                 'sku' => 'unit',
-                'prices' => 10.99,
+                'prices' => $priceCollection,
                 'quantity' => 1,
                 'category' => 'Unit > Test',
                 'description' => 'Test unit to product',
@@ -54,11 +77,11 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
 
         $product2 = new Product(
             [
-                'sku' => 'iprdwqfecrczjymltueadopyunangdekdfnwqdhlzuaikmepslkixfepoqxmebccnduobphlymuyvowgngkdwdpaftflivzcxdaumofmsxuygjgqqlkqrfobhyrpyhmcdqaelxoadvzfkklrdwpicljbprhekjktrf',
+                'sku' => 'unit101001',
                 'prices' => 99.99,
                 'quantity' => 2,
                 'category' => 'Unit > Test',
-                'description' => 'Test unit to product',
+                'description' => 'Test unit to product<br>',
                 'images' => [
                     'http://image.com/teste3.jpg',
                     'http://image.com/teste4.jpg'
@@ -73,7 +96,7 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
                 'sizeWidth' => 7,
                 'weightValue' => 6,
                 'marketplace' => 'PHP Unit',
-                'barcode' => '0123456'
+                'barcode' => '123'
             ]
         );
 

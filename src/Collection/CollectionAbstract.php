@@ -10,7 +10,7 @@ use Mobly\Buscape\Sdk\Entity\Product;
  *
  * @package Mobly\Buscape\Sdk\Collection
  */
-abstract class CollectionAbstract implements \JsonSerializable, \Countable
+abstract class CollectionAbstract implements \IteratorAggregate, \JsonSerializable, \Countable
 {
     /**
      * @var array
@@ -56,6 +56,14 @@ abstract class CollectionAbstract implements \JsonSerializable, \Countable
     public function toArray()
     {
         return $this->collection;     
+    }
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->collection);
     }
 
     /**

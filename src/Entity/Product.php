@@ -219,7 +219,7 @@ class Product extends EntityAbstract
         ],
         'prices' => [
             'required',
-            'checkPrice'
+            'priceCheck'
         ],
         'quantity' => [
             'required'
@@ -268,14 +268,6 @@ class Product extends EntityAbstract
     {
         parent::__construct($data);
         $this->validate($this);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isValid()
-    {
-        return !count($this->errors) > 0;
     }
 
     /**
@@ -660,15 +652,5 @@ class Product extends EntityAbstract
     public function setErrors($errors)
     {
         $this->errors[] = $errors;
-    }
-
-    protected function validateSku()
-    {
-        return strlen($this->sku) < 240;
-    }
-
-    protected function validateBarcode()
-    {
-
     }
 }
