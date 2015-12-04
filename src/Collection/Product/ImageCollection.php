@@ -1,7 +1,8 @@
 <?php
 namespace Mobly\Buscape\Sdk\Collection\Product;
 
-use Mobly\Buscape\Sdk\Entity\Product\Image;
+use Mobly\Buscape\Sdk\Collection\CollectionAbstract;
+use Mobly\Buscape\Sdk\Entity\EntityAbstract;
 
 /**
  * Image collection class
@@ -9,7 +10,7 @@ use Mobly\Buscape\Sdk\Entity\Product\Image;
  * @package Mobly\Buscape\Sdk\Collection\Product
  * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
  **/
-class ImageCollection implements \JsonSerializable
+class ImageCollection extends CollectionAbstract
 {
     /**
      * @var array
@@ -17,19 +18,13 @@ class ImageCollection implements \JsonSerializable
     protected $collection = [];
 
     /**
-     * Add iten in image collection  
+     * Add item in image collection
      *
-     * @param Image $image
+     * @param EntityAbstract $image
+     * @param null $key
      * @return void
      */
-    public function add(Image $image) {
+    public function add(EntityAbstract $image, $key = null) {
         $this->collection[] = $image->getUrl();
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize() {
-        return $this->collection;
     }
 }

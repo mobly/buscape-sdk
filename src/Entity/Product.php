@@ -4,14 +4,14 @@ namespace Mobly\Buscape\Sdk\Entity;
 
 use Mobly\Buscape\Sdk\Collection\Product\AttributeCollection;
 use Mobly\Buscape\Sdk\Collection\Product\ImageCollection;
-use Mobly\Buscape\Sdk\Collection\Product\PriceCollection;
+use Mobly\Buscape\Sdk\Collection\Product\SpecificationCollection;
 
 /**
  * Class Product
  *
  * @package Mobly\Buscape\Entity
  */
-class Product extends EntityAbstract
+class Product extends Inventory
 {
     /**
      * Product variation group ID
@@ -260,17 +260,6 @@ class Product extends EntityAbstract
     ];
 
     /**
-     * Product constructor.
-     *
-     * @param array $data
-     */
-    public function __construct($data = [])
-    {
-        parent::__construct($data);
-        $this->validate($this);
-    }
-
-    /**
      * @return string
      */
     public function getGroupId()
@@ -284,22 +273,6 @@ class Product extends EntityAbstract
     public function setGroupId($groupId)
     {
         $this->groupId = $groupId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSku()
-    {
-        return $this->sku;
-    }
-
-    /**
-     * @param string $sku
-     */
-    public function setSku($sku)
-    {
-        $this->sku = $sku;
     }
 
     /**
@@ -433,22 +406,6 @@ class Product extends EntityAbstract
     /**
      * @return array
      */
-    public function getPrices()
-    {
-        return $this->prices;
-    }
-
-    /**
-     * @param PriceCollection $prices
-     */
-    public function setPrices(PriceCollection $prices)
-    {
-        $this->prices = $prices;
-    }
-
-    /**
-     * @return array
-     */
     public function getProductAttributes()
     {
         return $this->productAttributes;
@@ -471,27 +428,11 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @param array $technicalSpecification
+     * @param SpecificationCollection $technicalSpecification
      */
-    public function setTechnicalSpecification($technicalSpecification)
+    public function setTechnicalSpecification(SpecificationCollection $technicalSpecification)
     {
         $this->technicalSpecification = $technicalSpecification;
-    }
-
-    /**
-     * @return int
-     */
-    public function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @param int $quantity
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
     }
 
     /**
@@ -639,18 +580,55 @@ class Product extends EntityAbstract
     }
 
     /**
-     * @return array
+     * @param $data
      */
-    public function getErrors()
+    public function setData($data)
     {
-        return $this->errors;
+        $collections = $this->getCollections();
+
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
+                if (array_key_exists($key, $collections) &&
+                    is_array($value) &&
+                    class_exists($collections[$key]['collection']) &&
+                    class_exists($collections[$key]['entity'])) {
+                    $this->{$key} = new $collections[$key]['collection']();
+
+                    foreach ($value as $entityData) {
+                        $this->{$key}->add(
+                            new $collections[$key]['entity']($entityData)
+                        );
+                    }
+                } else {
+                    $this->{$key} = $value;
+                }
+            }
+        }
     }
 
     /**
-     * @param array $errors
+     * @return array
      */
-    public function setErrors($errors)
+    protected function getCollections()
     {
-        $this->errors[] = $errors;
+        return [
+            'prices' => [
+                'entity' => 'Mobly\Buscape\Sdk\Entity\Product\Price',
+                'collection' => 'Mobly\Buscape\Sdk\Collection\Product\PriceCollection'
+            ],
+            'images' => [
+                'entity' => 'Mobly\Buscape\Sdk\Entity\Product\Image',
+                'collection' => 'Mobly\Buscape\Sdk\Collection\Product\ImageCollection'
+            ],
+            'productAttributes' => [
+                'entity' => 'Mobly\Buscape\Sdk\Entity\Product\Attribute',
+                'collection' => 'Mobly\Buscape\Sdk\Collection\Product\AttributeCollection'
+            ],
+            'technicalSpecification' => [
+                'entity' => 'Mobly\Buscape\Sdk\Entity\Product\Specification',
+                'collection' => 'Mobly\Buscape\Sdk\Collection\Product\SpecificationCollection'
+            ],
+        ];
     }
+
 }

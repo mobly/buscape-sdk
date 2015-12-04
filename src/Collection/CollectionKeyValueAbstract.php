@@ -9,7 +9,7 @@ use Mobly\Buscape\Sdk\Entity\EntityKeyValueAbstract;
  * @package Mobly\Buscape\Sdk\Collection
  * @author Wilton Garcia <wilton.oliveira@mobly.com.br>, <wiltonog@gmail.com>
  **/
-class CollectionKeyValueAbstract implements \JsonSerializable
+class CollectionKeyValueAbstract implements \IteratorAggregate, \JsonSerializable
 {
     /**
      * @var array
@@ -17,24 +17,31 @@ class CollectionKeyValueAbstract implements \JsonSerializable
     protected $collection = [];
 
     /**
-     * Add iten in collection  
+     * Add item in collection
      *
      * @param EntityKeyValueAbstract $entity
      * @return void
      */
     public function add(EntityKeyValueAbstract $entity) {
-        $this->collection[] = $entity;
+        $this->collection[] = [
+            $entity->getKey() => $entity->getValue()
+        ];
+    }
+
+    /**
+     * @return \ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->collection);
     }
 
     /**
      * @return array
      */
-    public function jsonSerialize() {
-        $data = [];
-        foreach ($this->collection as $item) {
-            $data[$item->getKey()] = $item->getValue();
-        }
-        return $data;
+    public function jsonSerialize()
+    {
+        return $this->collection;
     }
 
     /**

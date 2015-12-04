@@ -146,17 +146,17 @@ abstract class EntityAbstract implements \JsonSerializable
     /**
      * @return array
      */
-    public function getRequired()
+    public function getRules()
     {
-        return $this->required;
+        return $this->rules;
     }
 
     /**
-     * @param array $required
+     * @param array $rules
      */
-    public function setRequired($required)
+    public function setRules($rules)
     {
-        $this->required = $required;
+        $this->rules = $rules;
     }
 
     /**

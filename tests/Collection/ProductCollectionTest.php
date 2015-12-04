@@ -57,13 +57,23 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
                 'category' => 'Unit > Test',
                 'description' => 'Test unit to product',
                 'images' => [
-                    'http://image.com/teste.jpg',
-                    'http://image.com/teste2.jpg'
+                    [
+                        'url' => 'http://image.com/teste1.jpg'
+                    ],
+                    [
+                        'url' => 'http://image.com/teste2.jpg'
+                    ],
                 ],
                 'link' => 'http://link.com/unit',
                 'technicalSpecification' => [
-                    'Use' => 'Unit',
-                    'Another' => 'Unit',
+                    [
+                        'key' => 'Unit',
+                        'value' => 'Use',
+                    ],
+                    [
+                        'key' => 'Another',
+                        'value' => 'Unit',
+                    ],
                 ],
                 'sizeHeight' => 10,
                 'sizeLength' => 10,
@@ -83,13 +93,23 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
                 'category' => 'Unit > Test',
                 'description' => 'Test unit to product<br>',
                 'images' => [
-                    'http://image.com/teste3.jpg',
-                    'http://image.com/teste4.jpg'
+                    [
+                        'url' => 'http://image.com/teste3.jpg'
+                    ],
+                    [
+                        'url' => 'http://image.com/teste4.jpg'
+                    ],
                 ],
                 'link' => 'http://link.com/unit2',
                 'technicalSpecification' => [
-                    'Use' => 'Unit2',
-                    'Another' => 'Unit2',
+                    [
+                        'key' => 'Unit2',
+                        'value' => 'Use',
+                    ],
+                    [
+                        'key' => 'Another',
+                        'value' => 'Unit2',
+                    ],
                 ],
                 'sizeHeight' => 9,
                 'sizeLength' => 8,
@@ -101,8 +121,6 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
         );
 
         $productCollection->add($product2);
-
-        echo json_encode($productCollection);
-
+        
     }
 }
