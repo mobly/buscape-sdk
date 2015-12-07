@@ -123,6 +123,7 @@ abstract class EntityAbstract implements \JsonSerializable
      */
     public function isValid()
     {
+        $this->validate();
         return !count($this->errors) > 0;
     }
 

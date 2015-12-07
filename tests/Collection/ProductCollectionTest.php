@@ -88,7 +88,18 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
         $product2 = new Product(
             [
                 'sku' => 'unit101001',
-                'prices' => 99.99,
+                'prices' => [
+                    [
+                        'type' => Product\Price::TYPE_CARTAO_AVISTA,
+                        'price' => 50.50
+                    ],
+                    [
+                        'type' => Product\Price::TYPE_CARTAO_PARCELADO_SEM_JUROS,
+                        'price' => 50.50,
+                        'installment' => 2,
+                        'installmentValue' => 25.25,
+                    ]
+                ],
                 'quantity' => 2,
                 'category' => 'Unit > Test',
                 'description' => 'Test unit to product<br>',

@@ -21,7 +21,7 @@ class ProductCollection extends CollectionAbstract
         if ($product->isValid()) {
             $this->collection[] = $product;
         } else {
-            $this->errors[] = $product;
+            $this->errors[$product->getSku()] = $product->getErrors();
         }
     }
 

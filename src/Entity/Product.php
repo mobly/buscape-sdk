@@ -5,6 +5,17 @@ namespace Mobly\Buscape\Sdk\Entity;
 use Mobly\Buscape\Sdk\Collection\Product\AttributeCollection;
 use Mobly\Buscape\Sdk\Collection\Product\ImageCollection;
 use Mobly\Buscape\Sdk\Collection\Product\SpecificationCollection;
+use Mobly\Buscape\Sdk\Collection\Product\PriceCollection;
+
+/**
+ * @see http://php.net/manual/en/function.boolval.php#111674
+ * Hack for old php versions to use boolval()
+ */
+if (!function_exists('boolval')) {
+    function boolval($val) {
+        return (bool) $val;
+    }
+}
 
 /**
  * Class Product
@@ -448,7 +459,7 @@ class Product extends Inventory
      */
     public function setSizeHeight($sizeHeight)
     {
-        $this->sizeHeight = $sizeHeight;
+        $this->sizeHeight = floatval($sizeHeight);
     }
 
     /**
@@ -464,7 +475,7 @@ class Product extends Inventory
      */
     public function setSizeLength($sizeLength)
     {
-        $this->sizeLength = $sizeLength;
+        $this->sizeLength = floatval($sizeLength);
     }
 
     /**
@@ -480,7 +491,7 @@ class Product extends Inventory
      */
     public function setSizeWidth($sizeWidth)
     {
-        $this->sizeWidth = $sizeWidth;
+        $this->sizeWidth = floatval($sizeWidth);
     }
 
     /**
@@ -496,7 +507,7 @@ class Product extends Inventory
      */
     public function setWeightValue($weightValue)
     {
-        $this->weightValue = $weightValue;
+        $this->weightValue = floatval($weightValue);
     }
 
     /**
@@ -512,7 +523,7 @@ class Product extends Inventory
      */
     public function setDeclaredPrice($declaredPrice)
     {
-        $this->declaredPrice = $declaredPrice;
+        $this->declaredPrice = floatval($declaredPrice);
     }
 
     /**
@@ -534,7 +545,7 @@ class Product extends Inventory
     /**
      * @return boolean
      */
-    public function isMarketplace()
+    public function getMarketplace()
     {
         return $this->marketplace;
     }
@@ -544,7 +555,7 @@ class Product extends Inventory
      */
     public function setMarketplace($marketplace)
     {
-        $this->marketplace = $marketplace;
+        $this->marketplace = boolval($marketplace);
     }
 
     /**
@@ -592,15 +603,17 @@ class Product extends Inventory
                     is_array($value) &&
                     class_exists($collections[$key]['collection']) &&
                     class_exists($collections[$key]['entity'])) {
-                    $this->{$key} = new $collections[$key]['collection']();
+                    $this->{'set'.ucfirst($key)}(
+                        new $collections[$key]['collection']()
+                    );
 
                     foreach ($value as $entityData) {
-                        $this->{$key}->add(
+                        $this->{'get'.ucfirst($key)}()->add(
                             new $collections[$key]['entity']($entityData)
                         );
                     }
                 } else {
-                    $this->{$key} = $value;
+                    $this->{'set'.ucfirst($key)}($value);
                 }
             }
         }

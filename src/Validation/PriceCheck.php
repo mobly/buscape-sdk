@@ -59,12 +59,12 @@ class PriceCheck extends ValidationAbstract
                 if (in_array($price['type'], $this->parcelado)) {
                     $parceladoCheck[] = $price['type'];
                 }
+            }
 
-                if (!count($avistaCheck) > 0 && !count($parceladoCheck) > 0) {
-                    $this->entity->setErrors(
-                        'The param "' . $this->property . '" must be defined with two prices avista and parcelado'
-                    );
-                }
+            if (!(count($avistaCheck) > 0 && count($parceladoCheck) > 0)) {
+                $this->entity->setErrors(
+                    'The param "' . $this->property . '" must be defined with two prices avista and parcelado'
+                );
             }
         } else {
             $this->entity->setErrors(
