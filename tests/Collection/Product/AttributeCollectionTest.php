@@ -27,7 +27,7 @@ class AttributeCollectionTest extends \PHPUnit_Framework_TestCase
         $attributeCollection = new AttributeCollection();
         $attributeCollection->add($attribute);
 
-        $expected = '{"Atributo 1":"Valor 1"}';
+        $expected = '[{"Atributo 1":"Valor 1"}]';
 
         $this->assertEquals(
             $expected,

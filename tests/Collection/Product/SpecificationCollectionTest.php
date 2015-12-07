@@ -27,7 +27,7 @@ class SpecificationCollectionTest extends \PHPUnit_Framework_TestCase
         $specificationCollection = new SpecificationCollection();
         $specificationCollection->add($specification);
 
-        $expected = '{"Especifica\u00e7\u00e3o 1":"Valor"}';
+        $expected = '[{"Especifica\u00e7\u00e3o 1":"Valor"}]';
 
         $this->assertEquals(
             $expected,
