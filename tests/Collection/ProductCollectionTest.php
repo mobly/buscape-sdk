@@ -132,6 +132,6 @@ class ProductCollectionTest extends \PHPUnit_Framework_TestCase
         );
 
         $productCollection->add($product2);
-
+        print_r($productCollection->toArray());
     }
 }

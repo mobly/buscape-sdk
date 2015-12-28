@@ -78,6 +78,15 @@ class Configuration
 
 
     /**
+     * Configuration constructor.
+     * @param array $configuration
+     */
+    protected function __construct(array $configuration)
+    {
+        $this->setup($configuration);
+    }
+
+    /**
      * Setup configuration
      *
      * @param array $configuration
@@ -112,8 +121,10 @@ class Configuration
      * Magic method for enable visibility to protected properties
      *
      * @link http://php.net/manual/pt_BR/language.oop5.overloading.php#language.oop5.overloading.members
-     * @return string
-     **/
+     * @param $name
+     *
+     * @return mixed
+     */
     public function __get($name)
     {
         return $this->$name;    
@@ -122,25 +133,16 @@ class Configuration
     /**
      * Create and return the instance of this class
      *
-     * @return Mobly\Buscape\Sdk\Client\Endpoint\Collection
-     **/
-    public static function getInstance()
+     * @param array $configuration
+     *
+     * @return Mobly\Buscape\Sdk\Client\Configuration
+     */
+    public static function getInstance(array $configuration)
     {
         if (null === static::$instance) {
-            static::$instance = new static();
+            static::$instance = new static($configuration);
         }
         return static::$instance;    
-    }    
-
-    /**
-     * Class constructor
-     *
-     * @return void
-     **/
-    protected function __construct()
-    {
     }
-
-
     
 }

@@ -16,14 +16,12 @@ use Mobly\Buscape\Sdk\Collection\ProductCollection;
 class Client
 {
     /**
-     * Class constructor
-     * 
+     * Client constructor.
      * @param array $configuration
-     * @return void
-     **/
+     */
     public function __construct(array $configuration)
     {
-        $this->configuration = Configuration::getInstance();    
+        $this->configuration = Configuration::getInstance($configuration);
     }
 
     /**

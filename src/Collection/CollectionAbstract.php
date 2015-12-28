@@ -55,7 +55,17 @@ abstract class CollectionAbstract implements \IteratorAggregate, \JsonSerializab
      **/
     public function toArray()
     {
-        return $this->collection;     
+        $collection = array();
+
+        foreach ($this->collection as $item) {
+            if ($item instanceof EntityAbstract) {
+                $collection[] = $item->toArray();
+            } else {
+                $collection[] = $item;
+            }
+        }
+
+        return $collection;
     }
 
     /**
