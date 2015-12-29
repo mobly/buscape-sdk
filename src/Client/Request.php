@@ -99,34 +99,51 @@ class Request
                 try {
                     $data = $response->json();
                 } catch (ParseException $e) {
-                    $data['errors'] = [[
-                        'code' => $e->getCode(),
-                        'message' => $e->getMessage()
-                    ]]; 
+                    $this->parseResponseError($page, $e);
+                    continue;
                 }
-                foreach ($page as $product) {
-                    $this->responseItems[] = [
-                        'sku' => $product->getSku(),
-                        'status' => false,
-                        'errors' => !empty($data['errors']) ? $data['errors'] : []
-                    ];   
-                }
+
+                $this->parseResponseError($page, null, $data);
             } catch (\Exception $e) {
-                foreach ($page as $product) {
-                    $this->responseItems[] = [
-                        'sku' => $product->getSku(),
-                        'status' => false,
-                        'errors' => [[
-                            'code' => $e->getCode(),
-                            'message' => $e->getMessage()
-                        ]]
-                    ];   
-                }
+                $this->parseResponseError($page, $e);
             }      
         }
 
         return $this->responseItems;
+    }
 
+    /**
+     * Parse error responses
+     *
+     * @param $page
+     * @param null $e
+     * @param $response
+     */
+    protected function parseResponseError($page, $e = null, $response)
+    {
+        $exceptionErrors = [];
+        if ($e !== null) {
+            $exceptionErrors['errors'] = [[
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
+            ]];
+        }
+
+        foreach ($page as $product) {
+            if (!count($exceptionErrors)) {
+                $responseError = [];
+                $responseKey = array_search($product['sku'], array_column($response, 'sku'));
+                if ($responseKey !== false) {
+                    $responseError = $response[$responseKey]['errors'];
+                }
+            }
+
+            $this->responseItems[] = [
+                'sku' => $product['sku'],
+                'status' => false,
+                'errors' => count($exceptionErrors) ? $exceptionErrors['errors'] : $responseError
+            ];
+        }
     }
 
     /**

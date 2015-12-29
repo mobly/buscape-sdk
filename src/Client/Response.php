@@ -128,7 +128,7 @@ class Response
     )
     {
         $this->data = new ProductCollection();
-        foreach ($products->toArray() as $key => $product) {
+        foreach ($products as $key => $product) {
             if (empty($responseData) || empty($responseData[$key])) {
                 continue;
             }
