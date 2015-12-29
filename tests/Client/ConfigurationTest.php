@@ -25,7 +25,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      **/
     public function setUp()
     {
-        $this->configuration = Configuration::getInstance();
+        $this->configuration = new Configuration([]);
     }
 
 
@@ -36,7 +36,12 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
      **/
     public function testConfigurationSetup()
     {
-        $configurationTwo = Configuration::getInstance();
+        $configurationTwo = new Configuration(
+            [
+                'appToken' => '123123',
+                'authToken' => '456456'
+            ]
+        );
             
         $this->configuration->setup([
             'appToken' => '123123',
@@ -69,7 +74,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $expected,
-            $endpoint->getUrl()
+            $endpoint->getUrl($this->configuration)
         );
     }
     
@@ -88,7 +93,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals(
             $expected,
-            $endpoint->getUrl()
+            $endpoint->getUrl($this->configuration)
         );
     }
     
@@ -111,7 +116,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $expected,
-            $endpoint->getUrl()
+            $endpoint->getUrl($this->configuration)
         );
     }
     
@@ -134,7 +139,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals(
             $expected,
-            $endpoint->getUrl()
+            $endpoint->getUrl($this->configuration)
         );
     }
 

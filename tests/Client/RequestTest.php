@@ -31,7 +31,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
      **/
     public function setUp()
     {
-        $this->configuration = Configuration::getInstance();
+        $this->configuration = new Configuration([]);
     }
 
     /**
@@ -45,7 +45,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             Configuration::ENDPOINT_COLLECTION
         );
         $collection = $this->getCollection();
-        $request = new Request($endpoint, $collection);
+        $request = new Request($endpoint, $collection, $this->configuration);
         $response = $request->send();
 
         $expected = $this->getRequestExpected(

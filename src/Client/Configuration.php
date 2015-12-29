@@ -26,13 +26,6 @@ class Configuration
      * @var string
      **/
     const ENDPOINT_INVENTORY = 'Inventory';
-    
-    /**
-     * Singleton class instance
-     *
-     * @var Mobly\Buscape\Sdk\Client\Configuration
-     **/
-    private static $instance;
 
     /**
      * HTTP protocol
@@ -81,7 +74,7 @@ class Configuration
      * Configuration constructor.
      * @param array $configuration
      */
-    protected function __construct(array $configuration)
+    public function __construct(array $configuration)
     {
         $this->setup($configuration);
     }
@@ -129,20 +122,4 @@ class Configuration
     {
         return $this->$name;    
     }
-
-    /**
-     * Create and return the instance of this class
-     *
-     * @param array $configuration
-     *
-     * @return Mobly\Buscape\Sdk\Client\Configuration
-     */
-    public static function getInstance(array $configuration)
-    {
-        if (null === static::$instance) {
-            static::$instance = new static($configuration);
-        }
-        return static::$instance;    
-    }
-    
 }

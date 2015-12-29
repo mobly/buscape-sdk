@@ -62,13 +62,14 @@ class Request
      **/
     public function __construct(
         EndpointAbstract $endpoint, 
-        ProductCollection $collection
+        ProductCollection $collection,
+        Configuration $configuration
     )
     {
         $this->client = new GuzzleClient();    
         $this->endpoint = $endpoint;    
         $this->collection = $collection;    
-        $this->configuration = Configuration::getInstance();
+        $this->configuration = $configuration;
     }
 
     /**
@@ -156,7 +157,7 @@ class Request
     {
         $request = $this->client->createRequest(
             $this->endpoint->method,
-            $this->endpoint->getUrl(),
+            $this->endpoint->getUrl($this->configuration),
             [
                 'body' => $body
             ]

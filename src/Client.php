@@ -21,7 +21,7 @@ class Client
      */
     public function __construct(array $configuration)
     {
-        $this->configuration = Configuration::getInstance($configuration);
+        $this->configuration = new Configuration($configuration);
     }
 
     /**
@@ -36,7 +36,7 @@ class Client
             Configuration::ENDPOINT_COLLECTION
         );
         
-        $request = new Request($endpoint, $products);
+        $request = new Request($endpoint, $products, $this->configuration);
         $response =  new Response();
 
         $response->mergeData(
@@ -59,7 +59,7 @@ class Client
             Configuration::ENDPOINT_INVENTORY
         );
         
-        $request = new Request($endpoint, $products);
+        $request = new Request($endpoint, $products, $this->configuration);
         $response =  new Response();
 
         $response->mergeData(

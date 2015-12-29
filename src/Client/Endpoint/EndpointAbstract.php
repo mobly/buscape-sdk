@@ -31,9 +31,8 @@ abstract class EndpointAbstract
      *
      * @return string
      **/
-    public function getUrl()
+    public function getUrl(Configuration $configuration)
     {
-        $configuration = Configuration::getInstance();
         return $configuration->protocol
             . '://'
             . ($configuration->sandboxMode ? $configuration->sandboxPrefix : '')

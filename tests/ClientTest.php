@@ -33,7 +33,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->client = new Client([]);
-        $this->configuration = Configuration::getInstance();
     }
 
     /**
@@ -57,7 +56,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testEndpoints($endpointClass, $method, $totalItems)
     {
         $this->totalItems = $totalItems;
-        $endpoint = $this->configuration->getEndpoint(
+        $endpoint = $this->client->configuration->getEndpoint(
             $endpointClass
         );
         $collection = $this->getCollection();
