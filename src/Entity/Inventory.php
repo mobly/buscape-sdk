@@ -42,6 +42,13 @@ class Inventory extends EntityAbstract
      */
     protected $errors = [];
 
+    /**
+     * Status
+     *
+     * @var bool
+     */
+    protected $status;
+
 
     /**
      * Validation rules
@@ -118,6 +125,22 @@ class Inventory extends EntityAbstract
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
 }
