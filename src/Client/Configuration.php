@@ -100,7 +100,7 @@ class Configuration
      * Return the endpoint object
      *
      * @param string $endpoint
-     * @return Mobly\Buscape\Sdk\Client\Endpoint\Collection|Mobly\Buscape\Sdk\Client\Endpoint\Inventory
+     * @return \Mobly\Buscape\Sdk\Client\Endpoint\Collection|\Mobly\Buscape\Sdk\Client\Endpoint\Inventory
      **/
     public function getEndpoint($endpoint)
     {

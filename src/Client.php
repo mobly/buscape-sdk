@@ -10,8 +10,12 @@ use Mobly\Buscape\Sdk\Collection\ProductCollection;
  * Client class
  *
  * @package Mobly\Buscape\Sdk
+ *
  * @author Fernando Lira <fernando.lira@mobly.com.br>
  * @author Wilton Garcia <wilton.oliveira@mobly.com.br>
+ * @author Mangierre Martins <mangierre.martins@mobly.com.br>
+ * @author Rodrigo Pereira <rodrigo.pereira@mobly.com.br>
+ *
  */
 class Client
 {
@@ -27,9 +31,10 @@ class Client
     /**
      * Load Products
      *
-     * @param Mobly\Buscape\Sdk\Collection\Product $products
-     * @return void
-     **/
+     * @param ProductCollection $products
+     *
+     * @return Response
+     */
     public function loadProducts(ProductCollection $products)
     {
         $endpoint = $this->configuration->getEndpoint(
@@ -50,9 +55,10 @@ class Client
     /**
      * Inventory Update
      *
-     * @param Mobly\Buscape\Sdk\Collection\Product $products
-     * @return void
-     **/
+     * @param ProductCollection $products
+     *
+     * @return Response
+     */
     public function inventoryUpdate(ProductCollection $products)
     {
         $endpoint = $this->configuration->getEndpoint(

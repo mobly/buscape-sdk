@@ -13,7 +13,7 @@ class Collection extends EndpointAbstract
     /**
      * Singleton class instance
      *
-     * @var Mobly\Buscape\Sdk\Client\Endpoint\Collection 
+     * @var \Mobly\Buscape\Sdk\Client\Endpoint\Collection
      **/
     private static $instance;
 
@@ -41,7 +41,7 @@ class Collection extends EndpointAbstract
     /**
      * Create and return the instance of this class
      *
-     * @return Mobly\Buscape\Sdk\Client\Endpoint\Collection
+     * @return \Mobly\Buscape\Sdk\Client\Endpoint\Collection
      **/
     public static function getInstance()
     {
