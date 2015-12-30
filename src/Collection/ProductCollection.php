@@ -2,6 +2,7 @@
 
 namespace Mobly\Buscape\Sdk\Collection;
 
+use B2W\Enum\Order\Status;
 use Mobly\Buscape\Sdk\Entity\EntityAbstract;
 use Mobly\Buscape\Sdk\Entity\Product;
 
@@ -15,7 +16,7 @@ class ProductCollection extends CollectionAbstract
     /**
      * @var array
      */
-    protected $success = [];
+    protected $response = [];
 
     /**
      * @param EntityAbstract $product
@@ -26,25 +27,17 @@ class ProductCollection extends CollectionAbstract
         if ($product->isValid()) {
             $this->collection[] = $product;
         } else {
-            $this->addErrors($product);
+            $this->errors[$product->getSku()] = $product->getErrors();
         }
     }
 
     public function addResponse(EntityAbstract $product)
     {
-        if ($product->isValid()) {
-            $this->success[] = $product->getSku();
-        } else {
-            $this->addErrors($product);
-        }
-    }
-
-    /**
-     * @param EntityAbstract $product
-     */
-    protected function addErrors(EntityAbstract $product)
-    {
-        $this->errors[$product->getSku()] = $product->getErrors();
+        $errors = $product->getErrors();
+        $this->response[$product->getSku()] = [
+            'status' => (bool) $product->isValid(),
+            'errors' => count($errors) ? array_shift($errors) : null
+        ];
     }
 
     /**
@@ -56,10 +49,5 @@ class ProductCollection extends CollectionAbstract
             $this->errors,
             parent::getErrors()
         );
-    }
-
-    public function getSuccess()
-    {
-        return $this->success;
     }
 }
