@@ -3,6 +3,7 @@
 namespace Mobly\Buscape\Sdk\Client;
 
 use Mobly\Buscape\Sdk\Collection\ProductCollection;
+use Mobly\Buscape\Sdk\Entity\Product;
 
 /**
  * Response
@@ -22,7 +23,7 @@ class Response
     /**
      * Response data
      *
-     * @var Mobly\Buscape\Sdk\Collection\Product
+     * @var \Mobly\Buscape\Sdk\Collection\Product
      **/
     protected $data;
 
@@ -34,13 +35,12 @@ class Response
     protected $message;
 
     /**
-     * Class constructor
+     * Response constructor.
      *
-     * @param boolean|null $status
-     * @param Mobly\Buscape\Sdk\Collection\Product|null $data
-     * @param string|null $message
-     * @return void
-     **/
+     * @param null $status
+     * @param null $data
+     * @param null $message
+     */
     public function __construct(
         $status = null, 
         $data = null, 
@@ -76,7 +76,7 @@ class Response
     /**
      * Return the data of response
      *
-     * @return Mobly\Buscape\Sdk\Collection\Product|null 
+     * @return ProductCollection|null
      **/
     public function getData()
     {
@@ -86,7 +86,7 @@ class Response
     /**
      * Set the data of response
      *
-     * @param Mobly\Buscape\Sdk\Collection\Product $data
+     * @param ProductCollection $data
      * @return void
      **/
     public function setData(ProductCollection $data)

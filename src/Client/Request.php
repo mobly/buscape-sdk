@@ -21,28 +21,28 @@ class Request
     /**
      * Guzzle Client instance
      *
-     * @var GuzzleHttp\Client
+     * @var \GuzzleHttp\Client
      **/
     private $client;
 
     /**
      * Configuration instance
      *
-     * @var Mobly\Buscape\Sdk\Client\Configuration
+     * @var \Mobly\Buscape\Sdk\Client\Configuration
      **/
     private $configuration;
 
     /**
      * Endpoint instance
      *
-     * @var Mobly\Buscape\Sdk\Client\Endpoint\EndpointAbstract
+     * @var \Mobly\Buscape\Sdk\Client\Endpoint\EndpointAbstract
      **/
     private $endpoint;
 
     /**
      * Collection instance
      *
-     * @var Mobly\Buscape\Sdk\Collection\Product;
+     * @var \Mobly\Buscape\Sdk\Collection\Product;
      **/
     private $collection;
 
@@ -51,15 +51,15 @@ class Request
      *
      * @var array
      **/
-    protected $responseItems = [];    
+    protected $responseItems = [];
 
     /**
-     * Class constructor
+     * Request constructor.
      *
-     * @param Mobly\Buscape\Sdk\Client\Endpoint\EndpointAbstract $endpoint
-     * @param Mobly\Buscape\Sdk\Collection\Product $collection
-     * @return void
-     **/
+     * @param EndpointAbstract $endpoint
+     * @param ProductCollection $collection
+     * @param Configuration $configuration
+     */
     public function __construct(
         EndpointAbstract $endpoint, 
         ProductCollection $collection,
@@ -151,7 +151,7 @@ class Request
      * Send request to Buscapé
      *
      * @param string $body
-     * @return GuzzleHttp\Message\Response
+     * @return \GuzzleHttp\Message\Response
      **/
     protected function doRequest($body)
     {

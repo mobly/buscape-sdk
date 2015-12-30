@@ -38,14 +38,14 @@ class Paginator implements \Iterator
      *
      * @var array
      */
-    protected $currentPage; 
+    protected $currentPage;
 
     /**
-     * Class constructor
+     * Paginator constructor.
      *
      * @param array $items
-     * @return void
-     **/
+     * @param $perPage
+     */
     public function __construct(array $items, $perPage) {
         $this->items = $items;
         $this->perPage = $perPage;
