@@ -118,21 +118,23 @@ class Response
     /**
      * Merge data from Buscape with the ccollection of products and set the this data property
      *
-     * @param Mobly\Buscape\Sdk\Collection\Product $products
-     * @param array $responseData
-     * @return void
-     **/
-    public function mergeData(
-        ProductCollection $products, 
-        $responseData
-    )
+     * @param ProductCollection $products
+     * @param $responseData
+     */
+    public function mergeData(ProductCollection $products, $responseData)
     {
         $this->data = new ProductCollection();
+
+        if (empty($responseData) && $products->getErrors()) {
+            $this->data->addValidationResponse($products->getErrors());
+            return;
+        }
+
         foreach ($products as $key => $product) {
-            if (empty($responseData) || empty($responseData[$key])) {
+            if (empty($responseData[$key])) {
                 continue;
             }
-            
+
             if (!empty($responseData[$key]['status'])) {
                 $product->setStatus($responseData[$key]['status']);
             }
@@ -140,10 +142,8 @@ class Response
                 $product->setErrors($responseData[$key]['errors']);    
             }
 
-            $this->data->addResponse($product);
+            $this->data->addProductResponse($product);
         }    
-
     }
-
 }
 

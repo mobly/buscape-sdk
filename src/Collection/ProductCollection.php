@@ -17,6 +17,9 @@ class ProductCollection extends CollectionAbstract
      */
     protected $response = [];
 
+    const PARTNER_VALIDATION_ERROR = 'PV';
+    const INTERNAL_VALIDATION_ERROR = 'IV';
+
     /**
      * @param EntityAbstract $product
      * @param null $key
@@ -33,13 +36,40 @@ class ProductCollection extends CollectionAbstract
     /**
      * @param EntityAbstract $product
      */
-    public function addResponse(EntityAbstract $product)
+    public function addProductResponse(EntityAbstract $product)
     {
         $errors = $product->getErrors();
-        $this->response[$product->getSku()] = [
-            'status' => (bool) $product->isValid(),
-            'errors' => count($errors) ? array_shift($errors) : null
+
+        $arrayDetails = [
+            'status' => (bool) $product->isValid()
         ];
+
+        if (count($errors)) {
+            $arrayDetails['errors'] = [
+                'origin' => self::PARTNER_VALIDATION_ERROR,
+                'messages' => array_shift($errors)
+            ];
+        }
+
+        $this->response[$product->getSku()] = $arrayDetails;
+    }
+
+    /**
+     * @param $errors
+     */
+    public function addValidationResponse($errors)
+    {
+        foreach ($errors as $sku => $messages) {
+            $arrayDetails = [
+                'status' => false,
+                'errors' => [
+                    'origin' => self::INTERNAL_VALIDATION_ERROR,
+                    'messages' => $messages
+                ]
+            ];
+
+            $this->response[$sku] = $arrayDetails;
+        }
     }
 
     /**
