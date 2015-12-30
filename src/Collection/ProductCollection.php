@@ -13,6 +13,11 @@ class ProductCollection extends CollectionAbstract
     protected $errors = [];
 
     /**
+     * @var array
+     */
+    protected $success = [];
+
+    /**
      * @param EntityAbstract $product
      * @param null $key
      */
@@ -21,8 +26,25 @@ class ProductCollection extends CollectionAbstract
         if ($product->isValid()) {
             $this->collection[] = $product;
         } else {
-            $this->errors[$product->getSku()] = $product->getErrors();
+            $this->addErrors($product);
         }
+    }
+
+    public function addResponse(EntityAbstract $product)
+    {
+        if ($product->isValid()) {
+            $this->success[] = $product->getSku();
+        } else {
+            $this->addErrors($product);
+        }
+    }
+
+    /**
+     * @param EntityAbstract $product
+     */
+    protected function addErrors(EntityAbstract $product)
+    {
+        $this->errors[$product->getSku()] = $product->getErrors();
     }
 
     /**
@@ -36,4 +58,8 @@ class ProductCollection extends CollectionAbstract
         );
     }
 
+    public function getSuccess()
+    {
+        return $this->success;
+    }
 }

@@ -140,7 +140,7 @@ class Response
                 $product->setErrors($responseData[$key]['errors']);    
             }
 
-            $this->data->add($product);
+            $this->data->addResponse($product);
         }    
 
     }
