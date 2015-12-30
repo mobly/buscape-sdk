@@ -2,7 +2,6 @@
 
 namespace Mobly\Buscape\Sdk\Collection;
 
-use B2W\Enum\Order\Status;
 use Mobly\Buscape\Sdk\Entity\EntityAbstract;
 use Mobly\Buscape\Sdk\Entity\Product;
 
@@ -31,6 +30,9 @@ class ProductCollection extends CollectionAbstract
         }
     }
 
+    /**
+     * @param EntityAbstract $product
+     */
     public function addResponse(EntityAbstract $product)
     {
         $errors = $product->getErrors();
@@ -38,6 +40,14 @@ class ProductCollection extends CollectionAbstract
             'status' => (bool) $product->isValid(),
             'errors' => count($errors) ? array_shift($errors) : null
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponse()
+    {
+        return $this->response;
     }
 
     /**
