@@ -13,6 +13,11 @@ class ProductCollection extends CollectionAbstract
     protected $errors = [];
 
     /**
+     * @var array
+     */
+    protected $response = [];
+
+    /**
      * @param EntityAbstract $product
      * @param null $key
      */
@@ -26,6 +31,26 @@ class ProductCollection extends CollectionAbstract
     }
 
     /**
+     * @param EntityAbstract $product
+     */
+    public function addResponse(EntityAbstract $product)
+    {
+        $errors = $product->getErrors();
+        $this->response[$product->getSku()] = [
+            'status' => (bool) $product->isValid(),
+            'errors' => count($errors) ? array_shift($errors) : null
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
      * @return array
      */
     public function getErrors()
@@ -35,5 +60,4 @@ class ProductCollection extends CollectionAbstract
             parent::getErrors()
         );
     }
-
 }
