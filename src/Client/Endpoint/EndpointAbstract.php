@@ -44,19 +44,12 @@ abstract class EndpointAbstract
      * Magic method for enable visibility to protected properties
      *
      * @link http://php.net/manual/pt_BR/language.oop5.overloading.php#language.oop5.overloading.members
+     *
+     * @param $name
      * @return string
-     **/
+     */
     public function __get($name)
     {
         return $this->$name;    
     }
-
-    /**
-     * Class constructor
-     *
-     * @return void
-     **/
-    protected function __construct()
-    {
-    }  
 }

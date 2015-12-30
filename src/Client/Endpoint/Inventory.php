@@ -41,7 +41,7 @@ class Inventory extends EndpointAbstract
     /**
      * Create and return the instance of this class
      *
-     * @return Mobly\Buscape\Sdk\Client\Endpoint\Collection
+     * @return \Mobly\Buscape\Sdk\Client\Endpoint\Collection
      **/
     public static function getInstance()
     {
