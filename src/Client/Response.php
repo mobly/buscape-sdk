@@ -125,7 +125,7 @@ class Response
     {
         $this->data = new ProductCollection();
 
-        if (empty($responseData) && $products->getErrors()) {
+        if ($products->getErrors()) {
             $this->data->addValidationResponse($products->getErrors());
             return;
         }
