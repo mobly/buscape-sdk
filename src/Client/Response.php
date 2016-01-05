@@ -127,7 +127,6 @@ class Response
 
         if ($products->getErrors()) {
             $this->data->addValidationResponse($products->getErrors());
-            return;
         }
 
         foreach ($products as $key => $product) {
