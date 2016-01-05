@@ -118,11 +118,11 @@ class Request
      *
      * @param $page
      * @param null $e
-     * @param $response
+     * @param array $response
      */
-    protected function parseResponseError($page, $e = null, $response)
+    protected function parseResponseError($page, $e = null, $response = [])
     {
-        $exceptionErrors = [];
+        $exceptionErrors = null;
         if ($e !== null) {
             $exceptionErrors['errors'] = [[
                 'code' => $e->getCode(),
@@ -131,7 +131,7 @@ class Request
         }
 
         foreach ($page as $product) {
-            if (!count($exceptionErrors)) {
+            if ($exceptionErrors === null) {
                 $responseError = [];
                 $responseKey = array_search($product['sku'], array_column($response, 'sku'));
                 if ($responseKey !== false) {
@@ -142,7 +142,7 @@ class Request
             $this->responseItems[] = [
                 'sku' => $product['sku'],
                 'status' => false,
-                'errors' => count($exceptionErrors) ? $exceptionErrors['errors'] : $responseError
+                'errors' => $exceptionErrors !== null ? $exceptionErrors['errors'] : $responseError
             ];
         }
     }
