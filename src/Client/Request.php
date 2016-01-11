@@ -104,7 +104,7 @@ class Request
                     continue;
                 }
 
-                $this->parseResponseError($page, null, $data);
+                $this->parseResponseError($page, isset($data['errors']) ? $e : null, $data);
             } catch (\Exception $e) {
                 $this->parseResponseError($page, $e);
             }      
@@ -133,7 +133,12 @@ class Request
         foreach ($page as $product) {
             if ($exceptionErrors === null) {
                 $responseError = [];
-                $responseKey = array_search($product['sku'], array_column($response, 'sku'));
+
+                $arraySkus = array_map(function($element) {
+                    return $element['sku'];
+                }, $response);
+
+                $responseKey = array_search($product['sku'], $arraySkus);
                 if ($responseKey !== false) {
                     $responseError = $response[$responseKey]['errors'];
                 }
