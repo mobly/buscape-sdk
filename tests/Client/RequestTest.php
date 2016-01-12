@@ -20,7 +20,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
     /**
      * Configuration instance
      *
-     * @var Mobly\Buscape\Sdk\Client\Configuration
+     * @var \Mobly\Buscape\Sdk\Client\Configuration
      **/
     public $configuration;
 

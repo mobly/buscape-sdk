@@ -9,6 +9,8 @@ use GuzzleHttp\Psr7\Request as GuzzleRequest;
 use Mobly\Buscape\Sdk\Client\Endpoint\EndpointAbstract;
 use Mobly\Buscape\Sdk\Client\Request\Paginator;
 use Mobly\Buscape\Sdk\Collection\ProductCollection;
+use Mobly\Buscape\Sdk\Traits\LoggerTrait;
+use Psr\Log\LoggerInterface;
 
 /**
  * Request
@@ -18,6 +20,8 @@ use Mobly\Buscape\Sdk\Collection\ProductCollection;
  **/
 class Request 
 {
+    use LoggerTrait;
+
     /**
      * Guzzle Client instance
      *
@@ -42,7 +46,7 @@ class Request
     /**
      * Collection instance
      *
-     * @var \Mobly\Buscape\Sdk\Collection\Product;
+     * @var \Mobly\Buscape\Sdk\Collection\ProductCollection;
      **/
     private $collection;
 
@@ -59,17 +63,21 @@ class Request
      * @param EndpointAbstract $endpoint
      * @param ProductCollection $collection
      * @param Configuration $configuration
+     * @param LoggerInterface $logger
+     *
      */
     public function __construct(
         EndpointAbstract $endpoint, 
         ProductCollection $collection,
-        Configuration $configuration
+        Configuration $configuration,
+        LoggerInterface $logger = null
     )
     {
         $this->client = new GuzzleClient();    
         $this->endpoint = $endpoint;    
         $this->collection = $collection;    
         $this->configuration = $configuration;
+        $this->initLogger($logger);
     }
 
     /**
@@ -144,11 +152,16 @@ class Request
                 }
             }
 
-            $this->responseItems[] = [
+            $errorResponse = [
                 'sku' => $product['sku'],
                 'status' => false,
                 'errors' => $exceptionErrors !== null ? $exceptionErrors['errors'] : $responseError
             ];
+
+            $this->responseItems[] = $errorResponse;
+
+            $this->debug('Error sku '. $product['sku'], $errorResponse);
+
         }
     }
 
@@ -175,6 +188,16 @@ class Request
                 'auth-token' => $this->configuration->authToken     
             ]
         );
+
+        $this->debug('Send request', [
+            'Accept' => $this->endpoint->accept,
+            'Content-type' => $this->endpoint->contentType,
+            'app-token' => $this->configuration->appToken,
+            'auth-token' => $this->configuration->authToken,
+            'url' => $this->endpoint->getUrl($this->configuration),
+            'method' => $this->endpoint->method,
+            'body' => $body
+        ]);
 
         return $this->client->send(
             $request, 

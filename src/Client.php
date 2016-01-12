@@ -5,6 +5,8 @@ use Mobly\Buscape\Sdk\Client\Configuration;
 use Mobly\Buscape\Sdk\Client\Request;
 use Mobly\Buscape\Sdk\Client\Response;
 use Mobly\Buscape\Sdk\Collection\ProductCollection;
+use Mobly\Buscape\Sdk\Traits\LoggerTrait;
+use Psr\Log\LoggerInterface;
 
 /**
  * Client class
@@ -19,13 +21,22 @@ use Mobly\Buscape\Sdk\Collection\ProductCollection;
  */
 class Client
 {
+    use LoggerTrait;
+
+    /**
+     * @var Configuration
+     */
+    protected  $configuration;
+
     /**
      * Client constructor.
      * @param array $configuration
+     * @param LoggerInterface|null $logger
      */
-    public function __construct(array $configuration)
+    public function __construct(array $configuration, LoggerInterface $logger = null)
     {
         $this->configuration = new Configuration($configuration);
+        $this->initLogger($logger);
     }
 
     /**
@@ -41,7 +52,13 @@ class Client
             Configuration::ENDPOINT_COLLECTION
         );
         
-        $request = new Request($endpoint, $products, $this->configuration);
+        $request = new Request(
+            $endpoint,
+            $products,
+            $this->configuration,
+            $this->getLogger()
+        );
+
         $response =  new Response();
 
         $response->mergeData(
@@ -65,7 +82,13 @@ class Client
             Configuration::ENDPOINT_INVENTORY
         );
         
-        $request = new Request($endpoint, $products, $this->configuration);
+        $request = new Request(
+            $endpoint,
+            $products,
+            $this->configuration,
+            $this->getLogger()
+        );
+
         $response =  new Response();
 
         $response->mergeData(
@@ -75,4 +98,5 @@ class Client
 
         return $response;
     }
+
 }

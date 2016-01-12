@@ -25,7 +25,7 @@ trait ProductCollectionTrait
     /**
      * Return a mock of the ProductCollection
      *
-     * @return Mobly\Buscape\Sdk\Collection\Product
+     * @return \Mobly\Buscape\Sdk\Collection\ProductCollection
      **/
     protected function getCollection()
     {
@@ -44,7 +44,7 @@ trait ProductCollectionTrait
     /**
      * Expected data for Request
      *
-     * @param  Mobly\Buscape\Sdk\Collection\Product $collection
+     * @param  \Mobly\Buscape\Sdk\Collection\ProductCollection $collection
      * @param  integer $chunk
      * @return array
      **/
@@ -85,9 +85,9 @@ trait ProductCollectionTrait
     /**
      * Expected data for Response
      *
-     * @param  Mobly\Buscape\Sdk\Collection\Product $collection
+     * @param  \Mobly\Buscape\Sdk\Collection\ProductCollection $collection
      * @param  integer $chunk
-     * @return Mobly\Buscape\Sdk\Collection\Product
+     * @return \Mobly\Buscape\Sdk\Collection\ProductCollection
      **/
     public function getResponseExpected(
         ProductCollection $collection, 
