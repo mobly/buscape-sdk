@@ -22,10 +22,9 @@ class CollectionKeyValueAbstract implements \IteratorAggregate, \JsonSerializabl
      * @param EntityKeyValueAbstract $entity
      * @return void
      */
-    public function add(EntityKeyValueAbstract $entity) {
-        $this->collection[] = [
-            $entity->getKey() => $entity->getValue()
-        ];
+    public function add(EntityKeyValueAbstract $entity)
+    {
+        $this->collection[$entity->getKey()] = $entity->getValue();
     }
 
     /**
