@@ -36,7 +36,7 @@ class Collection extends EndpointAbstract
      *
      * @var integer
      **/
-    protected $chunk = 1000;
+    protected $chunk = 200;
 
     /**
      * Create and return the instance of this class
