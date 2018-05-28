@@ -173,7 +173,7 @@ class Request
      **/
     protected function doRequest($body)
     {
-        $request = $this->client->createRequest(
+        $request = $this->client->request(
             $this->endpoint->method,
             $this->endpoint->getUrl($this->configuration),
             [
