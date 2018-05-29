@@ -4,8 +4,6 @@ namespace Mobly\Buscape\Sdk\Client;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ParseException;
-use GuzzleHttp\Psr7\Request as GuzzleRequest;
 use Mobly\Buscape\Sdk\Client\Endpoint\EndpointAbstract;
 use Mobly\Buscape\Sdk\Client\Request\Paginator;
 use Mobly\Buscape\Sdk\Collection\ProductCollection;
@@ -81,10 +79,9 @@ class Request
     }
 
     /**
-     * Get pages and send
-     *
      * @return array
-     **/
+     * @throws \Exception
+     */
     public function send()
     {
         $paginator = new Paginator(
@@ -98,18 +95,17 @@ class Request
                     json_encode($page)
                 );
                 if (200 === $response->getStatusCode()) {
+                    $data = json_decode($response->getBody()->getContents(), true);
                     $this->responseItems = array_merge(
                         array_values($this->responseItems),
-                        array_values($response->json())
+                        array_values($data)
                     );
                 }
             } catch (ClientException $e) {
                 $response = $e->getResponse();
-                try {
-                    $data = $response->json();
-                } catch (ParseException $e) {
-                    $this->parseResponseError($page, $e);
-                    continue;
+                $data = json_decode($response->getBody()->getContents(), true);
+                if (json_last_error() != JSON_ERROR_NONE) {
+                    throw new \Exception('Parse response error');
                 }
 
                 $this->parseResponseError($page, isset($data['errors']) ? $e : null, $data);
@@ -166,26 +162,24 @@ class Request
     }
 
     /**
-     * Send request to Buscapé
-     *
-     * @param string $body
-     * @return \GuzzleHttp\Message\Response
-     **/
+     * @param $body
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
     protected function doRequest($body)
     {
-        $request = $this->client->request(
+        $response = $this->client->request(
             $this->endpoint->method,
             $this->endpoint->getUrl($this->configuration),
             [
-                'body' => $body
-            ]
-        );
-        $request->setHeaders(
-            [
-                'Accept' => $this->endpoint->accept,
-                'Content-type' => $this->endpoint->contentType,
-                'app-token' => $this->configuration->appToken,
-                'auth-token' => $this->configuration->authToken     
+                'body' => $body,
+                'timeout' => 2,
+                'allow_redirects' => false,
+                [
+                    'Accept' => $this->endpoint->accept,
+                    'Content-type' => $this->endpoint->contentType,
+                    'app-token' => $this->configuration->appToken,
+                    'auth-token' => $this->configuration->authToken
+                ]
             ]
         );
 
@@ -199,12 +193,6 @@ class Request
             'body' => $body
         ]);
 
-        return $this->client->send(
-            $request, 
-            [
-                'timeout' => 2,
-                'allow_redirects' => false
-            ]
-        ); 
+        return $response;
     }
 }
