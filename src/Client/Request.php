@@ -174,7 +174,7 @@ class Request
                 'body' => $body,
                 'timeout' => 2,
                 'allow_redirects' => false,
-                [
+                'headers' => [
                     'Accept' => $this->endpoint->accept,
                     'Content-type' => $this->endpoint->contentType,
                     'app-token' => $this->configuration->appToken,
